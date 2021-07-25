@@ -1,0 +1,12 @@
+---
+title: "SLICED! S01E08 Analysis"
+output: html_notebook
+---
+
+```{r, setup-options, include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 5, fig.height = 8,
+  warning = FALSE,
+  cache = TRUE
+)
+```
