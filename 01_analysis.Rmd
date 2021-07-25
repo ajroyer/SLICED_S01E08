@@ -10,3 +10,20 @@ knitr::opts_chunk$set(
   cache = TRUE
 )
 ```
+
+# Packages
+```{r}
+library(tidyverse)
+library(tidymodels)
+```
+# Read in the data
+```{r}
+raw_train <- read_csv("train.csv")
+raw_test <- read_csv("test.csv")
+sample_sub <- read_csv("sample_submission.csv")
+```
+
+```{r}
+
+```
+
