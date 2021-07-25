@@ -221,9 +221,10 @@ pre code {
 <h1>Packages</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHRpZHltb2RlbHMpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHRpZHltb2RlbHMpXG5saWJyYXJ5KG1hZ3JpdHRyKVxuYGBgIn0= -->
 <pre class="r"><code>library(tidyverse)
-library(tidymodels)</code></pre>
+library(tidymodels)
+library(magrittr)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -276,14 +277,92 @@ x recipes::step()   masks stats::step()
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="check-out-the-data" class="section level1">
+<h1>Check out the data</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmF3X2FydGlzdHMgPC0gcmVhZF9jc3YoXCJhcnRpc3RzLmNzdlwiKVxuXG5gYGAifQ== -->
+<pre class="r"><code>raw_artists &lt;- read_csv(&quot;artists.csv&quot;)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5jb2xzKFxuICBpZCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgZm9sbG93ZXJzID0gY29sX2RvdWJsZSgpLFxuICBnZW5yZXMgPSBjb2xfY2hhcmFjdGVyKCksXG4gIG5hbWUgPSBjb2xfY2hhcmFjdGVyKCksXG4gIHBvcHVsYXJpdHkgPSBjb2xfZG91YmxlKClcbilcbiJ9 -->
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────────────────────────
+cols(
+  id = col_character(),
+  followers = col_double(),
+  genres = col_character(),
+  name = col_character(),
+  popularity = col_double()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShyYXdfdHJhaW4pXG5cbmBgYCJ9 -->
+<pre class="r"><code>glimpse(raw_train)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMjEsMDAwXG5Db2x1bW5zOiAxOVxuJCBpZCAgICAgICAgICAgICAgIDxkYmw+IDI2OSwgMjc1MDQsIDE2MDgyLCAxNDU4NSwgMTQ3NDAsIDkzODUsIDEyMzE4LCAyNDA5OCwgMjk0ODksIDkxNjYsIDY4NDQsIDfigKZcbiQgbmFtZSAgICAgICAgICAgICA8Y2hyPiBcImJsdW43IGEgc3dpc2hsYW5kXCIsIFwiUXVlIE1lIFBlcmRvbmUgVHUgU2XDsW9yYVwiLCBcIuaEm+WUhH5zaW5jZSAyMDA3flwiLCBcIkxldOKAplxuJCBwb3B1bGFyaXR5ICAgICAgIDxkYmw+IDYzLCA0MiwgNDIsIDEyLCA0MCwgMzksIDUxLCA1OCwgMTAsIDQ4LCAyNywgNDIsIDU1LCAzOCwgOSwgMjYsIDYsIDMwLCA1NizigKZcbiQgZHVyYXRpb25fbXMgICAgICA8ZGJsPiAxNjc3NjAsIDE1MDY0MCwgMjQyMzczLCAyMDI5ODksIDEzNDQwMCwgNDc0MDAsIDI5MjkwNywgMjU2OTczLCAxNDU4MjcsIDI14oCmXG4kIGFydGlzdHMgICAgICAgICAgPGNocj4gXCJbJ3RoYSBTdXByZW1lJ11cIiwgXCJbJ01hbm9lbGxhIFRvcnJlcyddXCIsIFwiWyd3aGl0ZWVlZW4nXVwiLCBcIlsnVHbDrWjDtmbDsGknXVwi4oCmXG4kIGlkX2FydGlzdHMgICAgICAgPGNocj4gXCJbJzE5aTkzc0EwRDd5UzlkWW9WTkJxQUEnXVwiLCBcIlsnNEpSS2NMYnBqb2Jtb09Wb09YUGQ2eSddXCIsIFwiWyc2djNWRlgycUlX4oCmXG4kIGRhbmNlYWJpbGl0eSAgICAgPGRibD4gMC42OTIsIDAuNjA4LCAwLjU3MiwgMC44NTUsIDAuNjU0LCAwLjU3OCwgMC42MDUsIDAuNTk1LCAwLjc1MSwgMC43OTksIDAuN+KAplxuJCBlbmVyZ3kgICAgICAgICAgIDxkYmw+IDAuNzkyLCAwLjQ0NywgMC43ODIsIDAuNDcwLCAwLjMzNiwgMC4xMzIsIDAuNTQyLCAwLjY2MywgMC4xNjcsIDAuODMwLCAwLjbigKZcbiQga2V5ICAgICAgICAgICAgICA8ZGJsPiA3LCA2LCA4LCA3LCA2LCAwLCAwLCA0LCAwLCA0LCAzLCA3LCA5LCAwLCAxMSwgNSwgNSwgMSwgMCwgOSwgMCwgNiwgMTEsIDIs4oCmXG4kIGxvdWRuZXNzICAgICAgICAgPGRibD4gLTUuOTg0LCAtMTIuMTUxLCAtNS4yNzUsIC05LjI1MiwgLTEyLjgyNSwgLTE4LjUyMywgLTcuODQ5LCAtNS43NTUsIC0xMS45NOKAplxuJCBzcGVlY2hpbmVzcyAgICAgIDxkYmw+IDAuMjQ1MCwgMC4wNjYzLCAwLjAzNjEsIDAuMTYyMCwgMC4wMzc5LCAwLjA0OTEsIDAuMDM4MCwgMC4wOTMxLCAwLjA0NzQsIDDigKZcbiQgYWNvdXN0aWNuZXNzICAgICA8ZGJsPiAwLjEzMDAwMCwgMC4zMzUwMDAsIDAuMzA2MDAwLCAwLjAxMTEwMCwgMC44NTgwMDAsIDAuODY1MDAwLCAwLjY4MDAwMCwgMC4y4oCmXG4kIGluc3RydW1lbnRhbG5lc3MgPGRibD4gMC4wMGUrMDAsIDMuNTFlLTA1LCAwLjAwZSswMCwgMi4wNmUtMDYsIDMuODVlLTAxLCA1Ljg3ZS0wMiwgMC4wMGUrMDAsIDAuMOKAplxuJCBsaXZlbmVzcyAgICAgICAgIDxkYmw+IDAuMjU1MCwgMC4xNjkwLCAwLjM3NDAsIDAuMjY0MCwgMC4wNzg2LCAwLjEzOTAsIDAuMTQxMCwgMC4zMzUwLCAwLjE2NTAsIDDigKZcbiQgdmFsZW5jZSAgICAgICAgICA8ZGJsPiAwLjU2NiwgMC42NzMsIDAuNDUwLCAwLjg2NCwgMC45NDcsIDAuMTk1LCAwLjYzMywgMC4yODAsIDAuNTY5LCAwLjY2NywgMC4z4oCmXG4kIHRlbXBvICAgICAgICAgICAgPGRibD4gMTI5Ljg4MywgOTAuNzc3LCAxNzAuMDUwLCAxMDIuMDA4LCAxNzYuMDgzLCAxMTIuMjA0LCAxNDcuOTU1LCAxMzAuOTgyLCAxMOKAplxuJCByZWxlYXNlX3llYXIgICAgIDxkYmw+IDIwMTksIDIwMDcsIDIwMTYsIDIwMDEsIDE5NzcsIDE5OTMsIDIwMDcsIDIwMTksIDE5MzYsIDIwMDAsIDIwMDQsIDIwMDQsIDLigKZcbiQgcmVsZWFzZV9tb250aCAgICA8Y2hyPiBcIjExXCIsIFwiMDNcIiwgXCIwM1wiLCBcIjAxXCIsIFwiMDJcIiwgXCIwNFwiLCBcIjEwXCIsIFwiMDJcIiwgTkEsIFwiMDJcIiwgXCIwMVwiLCBcIjAxXCIsIFwiMTHigKZcbiQgcmVsZWFzZV9kYXkgICAgICA8Y2hyPiBcIjE1XCIsIFwiMjFcIiwgXCIwOVwiLCBcIjAxXCIsIFwiMDRcIiwgXCIyNVwiLCBcIjIyXCIsIFwiMDhcIiwgTkEsIFwiMjFcIiwgXCIxNVwiLCBcIjAxXCIsIFwiMTHigKZcbiJ9 -->
+<pre><code>Rows: 21,000
+Columns: 19
+$ id               &lt;dbl&gt; 269, 27504, 16082, 14585, 14740, 9385, 12318, 24098, 29489, 9166, 6844, 7…
+$ name             &lt;chr&gt; &quot;blun7 a swishland&quot;, &quot;Que Me Perdone Tu Señora&quot;, &quot;愛唄~since 2007~&quot;, &quot;Let…
+$ popularity       &lt;dbl&gt; 63, 42, 42, 12, 40, 39, 51, 58, 10, 48, 27, 42, 55, 38, 9, 26, 6, 30, 56,…
+$ duration_ms      &lt;dbl&gt; 167760, 150640, 242373, 202989, 134400, 47400, 292907, 256973, 145827, 25…
+$ artists          &lt;chr&gt; &quot;[&#39;tha Supreme&#39;]&quot;, &quot;[&#39;Manoella Torres&#39;]&quot;, &quot;[&#39;whiteeeen&#39;]&quot;, &quot;[&#39;Tvíhöfði&#39;]&quot;…
+$ id_artists       &lt;chr&gt; &quot;[&#39;19i93sA0D7yS9dYoVNBqAA&#39;]&quot;, &quot;[&#39;4JRKcLbpjobmoOVoOXPd6y&#39;]&quot;, &quot;[&#39;6v3VFX2qIW…
+$ danceability     &lt;dbl&gt; 0.692, 0.608, 0.572, 0.855, 0.654, 0.578, 0.605, 0.595, 0.751, 0.799, 0.7…
+$ energy           &lt;dbl&gt; 0.792, 0.447, 0.782, 0.470, 0.336, 0.132, 0.542, 0.663, 0.167, 0.830, 0.6…
+$ key              &lt;dbl&gt; 7, 6, 8, 7, 6, 0, 0, 4, 0, 4, 3, 7, 9, 0, 11, 5, 5, 1, 0, 9, 0, 6, 11, 2,…
+$ loudness         &lt;dbl&gt; -5.984, -12.151, -5.275, -9.252, -12.825, -18.523, -7.849, -5.755, -11.94…
+$ speechiness      &lt;dbl&gt; 0.2450, 0.0663, 0.0361, 0.1620, 0.0379, 0.0491, 0.0380, 0.0931, 0.0474, 0…
+$ acousticness     &lt;dbl&gt; 0.130000, 0.335000, 0.306000, 0.011100, 0.858000, 0.865000, 0.680000, 0.2…
+$ instrumentalness &lt;dbl&gt; 0.00e+00, 3.51e-05, 0.00e+00, 2.06e-06, 3.85e-01, 5.87e-02, 0.00e+00, 0.0…
+$ liveness         &lt;dbl&gt; 0.2550, 0.1690, 0.3740, 0.2640, 0.0786, 0.1390, 0.1410, 0.3350, 0.1650, 0…
+$ valence          &lt;dbl&gt; 0.566, 0.673, 0.450, 0.864, 0.947, 0.195, 0.633, 0.280, 0.569, 0.667, 0.3…
+$ tempo            &lt;dbl&gt; 129.883, 90.777, 170.050, 102.008, 176.083, 112.204, 147.955, 130.982, 10…
+$ release_year     &lt;dbl&gt; 2019, 2007, 2016, 2001, 1977, 1993, 2007, 2019, 1936, 2000, 2004, 2004, 2…
+$ release_month    &lt;chr&gt; &quot;11&quot;, &quot;03&quot;, &quot;03&quot;, &quot;01&quot;, &quot;02&quot;, &quot;04&quot;, &quot;10&quot;, &quot;02&quot;, NA, &quot;02&quot;, &quot;01&quot;, &quot;01&quot;, &quot;11…
+$ release_day      &lt;chr&gt; &quot;15&quot;, &quot;21&quot;, &quot;09&quot;, &quot;01&quot;, &quot;04&quot;, &quot;25&quot;, &quot;22&quot;, &quot;08&quot;, NA, &quot;21&quot;, &quot;15&quot;, &quot;01&quot;, &quot;11…</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="data-dictionary" class="section level1">
+<h1>Data dictionary</h1>
+<div id="tracks.csv" class="section level2">
+<h2>tracks.csv</h2>
+<p>id (Unique identifier of track) name (Name of the song) popularity (Ranges from 0 to 100) duration_ms (Integer typically ranging from 200k to 300k) artists (List of artists mentioned) id_artists (Ids of mentioned artists) danceability (Ranges from 0 to 1) energy (Ranges from 0 to 1) key (All keys on octave encoded as values ranging from 0 to 11, starting on C as 0, C# as 1 and so on…) loudness (Float typically ranging from -60 to 0) speechiness (Ranges from 0 to 1) acousticness (Ranges from 0 to 1) instrumentalness (Ranges from 0 to 1) liveness (Ranges from 0 to 1) valence (Ranges from 0 to 1) tempo (Float typically ranging from 50 to 150) release_year (Year of release) release_month (Month of year released) release_day (Day of month released)</p>
+<p>##artists.csv id (Id of artist) followers (Total number of followers of artist) genres (Genres associated with this artist) name (Name of artist) popularity (Popularity of given artist based on all his/her tracks)</p>
+</div>
+</div>
+<div id="what-shit-can-we-dump" class="section level1">
+<h1>What shit can we dump?</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="tidy-up-the-data-using-a-recipe" class="section level1">
+<h1>Tidy up the data using a recipe</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmF3X3RyYWluJGFydGlzdHNbMzU0XSAlPiUgc3RyX3JlbW92ZV9hbGwocGF0dGVybiA9IFwiLFwiKSAlPiUgIHN0cl9leHRyYWN0X2FsbChwYXR0ZXJuID0gXCJbOnB1bmN0Ol1bWzphbG51bTpdXStbOmJsYW5rOl0qXCIpXG5cbmBgYCJ9 -->
+<pre class="r"><code>raw_train$artists[354] %&gt;% str_remove_all(pattern = &quot;,&quot;) %&gt;%  str_extract_all(pattern = &quot;[:punct:][[:alnum:]]+[:blank:]*&quot;)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cblsxXSBcIidHaXVzZXBwZSBcIiAgXCInUmljaGFyZCBcIiAgIFwiJ0dpdXNlcHBlIFwiICBcIidFbHZpcmEgXCIgICAgXCInQ29ybyBcIiAgICAgIFwiJ09yY2hlc3RyYSBcIlxuWzddIFwiJ1R1bGxpbyBcIiAgICBcIidPcmNoZXN0cmEgXCJcbiJ9 -->
+<pre><code>[[1]]
+[1] &quot;&#39;Giuseppe &quot;  &quot;&#39;Richard &quot;   &quot;&#39;Giuseppe &quot;  &quot;&#39;Elvira &quot;    &quot;&#39;Coro &quot;      &quot;&#39;Orchestra &quot;
+[7] &quot;&#39;Tullio &quot;    &quot;&#39;Orchestra &quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU0xJQ0VEISBTMDFFMDggQW5hbHlzaXMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyLCBzZXR1cC1vcHRpb25zLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCiAgZmlnLndpZHRoID0gNSwgZmlnLmhlaWdodCA9IDgsCiAgd2FybmluZyA9IEZBTFNFLAogIGNhY2hlID0gVFJVRQopCmBgYAoKIyBQYWNrYWdlcwpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkodGlkeW1vZGVscykKYGBgCiMgUmVhZCBpbiB0aGUgZGF0YQpgYGB7cn0KcmF3X3RyYWluIDwtIHJlYWRfY3N2KCJ0cmFpbi5jc3YiKQpyYXdfdGVzdCA8LSByZWFkX2NzdigidGVzdC5jc3YiKQpzYW1wbGVfc3ViIDwtIHJlYWRfY3N2KCJzYW1wbGVfc3VibWlzc2lvbi5jc3YiKQpgYGAKCmBgYHtyfQoKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU0xJQ0VEISBTMDFFMDggQW5hbHlzaXMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyLCBzZXR1cC1vcHRpb25zLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCiAgZmlnLndpZHRoID0gNSwgZmlnLmhlaWdodCA9IDgsCiAgd2FybmluZyA9IEZBTFNFLAogIGNhY2hlID0gVFJVRQopCmBgYAoKIyBQYWNrYWdlcwpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkodGlkeW1vZGVscykKbGlicmFyeShtYWdyaXR0cikKYGBgCiMgUmVhZCBpbiB0aGUgZGF0YQpgYGB7cn0KcmF3X3RyYWluIDwtIHJlYWRfY3N2KCJ0cmFpbi5jc3YiKQpyYXdfdGVzdCA8LSByZWFkX2NzdigidGVzdC5jc3YiKQpyYXdfYXJ0aXN0cyA8LSByZWFkX2NzdigiYXJ0aXN0cy5jc3YiKQpzYW1wbGVfc3ViIDwtIHJlYWRfY3N2KCJzYW1wbGVfc3VibWlzc2lvbi5jc3YiKQpgYGAKIyBDaGVjayBvdXQgdGhlIGRhdGEKYGBge3J9CmdsaW1wc2UocmF3X3RyYWluKQpgYGAKYGBge3J9CmdsaW1wc2UocmF3X2FydGlzdHMpCmBgYAojIERhdGEgZGljdGlvbmFyeQoKIyMgdHJhY2tzLmNzdgppZCAgICAgICAgICAgICAgICAoVW5pcXVlIGlkZW50aWZpZXIgb2YgdHJhY2spCm5hbWUgICAgICAgICAgICAgIChOYW1lIG9mIHRoZSBzb25nKQpwb3B1bGFyaXR5ICAgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxMDApCmR1cmF0aW9uX21zICAgICAgIChJbnRlZ2VyIHR5cGljYWxseSByYW5naW5nIGZyb20gMjAwayB0byAzMDBrKQphcnRpc3RzICAgICAgICAgICAoTGlzdCBvZiBhcnRpc3RzIG1lbnRpb25lZCkKaWRfYXJ0aXN0cyAgICAgICAgKElkcyBvZiBtZW50aW9uZWQgYXJ0aXN0cykKZGFuY2VhYmlsaXR5ICAgICAgKFJhbmdlcyBmcm9tIDAgdG8gMSkKZW5lcmd5ICAgICAgICAgICAgKFJhbmdlcyBmcm9tIDAgdG8gMSkKa2V5ICAgICAgICAgICAgICAgKEFsbCBrZXlzIG9uIG9jdGF2ZSBlbmNvZGVkIGFzIHZhbHVlcyByYW5naW5nIGZyb20gMCB0byAxMSwgc3RhcnRpbmcgb24gQyBhcyAwLCBDIyBhcyAxIGFuZCBzbyBvbi4uLikKbG91ZG5lc3MgICAgICAgICAgKEZsb2F0IHR5cGljYWxseSByYW5naW5nIGZyb20gLTYwIHRvIDApCnNwZWVjaGluZXNzICAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCmFjb3VzdGljbmVzcyAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCmluc3RydW1lbnRhbG5lc3MgIChSYW5nZXMgZnJvbSAwIHRvIDEpCmxpdmVuZXNzICAgICAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCnZhbGVuY2UgICAgICAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCnRlbXBvICAgICAgICAgICAgIChGbG9hdCB0eXBpY2FsbHkgcmFuZ2luZyBmcm9tIDUwIHRvIDE1MCkKcmVsZWFzZV95ZWFyICAgICAgKFllYXIgb2YgcmVsZWFzZSkKcmVsZWFzZV9tb250aCAgICAgKE1vbnRoIG9mIHllYXIgcmVsZWFzZWQpCnJlbGVhc2VfZGF5ICAgICAgIChEYXkgb2YgbW9udGggcmVsZWFzZWQpCgojI2FydGlzdHMuY3N2CmlkIChJZCBvZiBhcnRpc3QpCmZvbGxvd2VycyAoVG90YWwgbnVtYmVyIG9mIGZvbGxvd2VycyBvZiBhcnRpc3QpCmdlbnJlcyAoR2VucmVzIGFzc29jaWF0ZWQgd2l0aCB0aGlzIGFydGlzdCkKbmFtZSAoTmFtZSBvZiBhcnRpc3QpCnBvcHVsYXJpdHkgKFBvcHVsYXJpdHkgb2YgZ2l2ZW4gYXJ0aXN0IGJhc2VkIG9uIGFsbCBoaXMvaGVyIHRyYWNrcykKCiMgV2hhdCBzaGl0IGNhbiB3ZSBkdW1wPwpgYGB7cn0KCmBgYAoKCiMgVGlkeSB1cCB0aGUgZGF0YSB1c2luZyBhIHJlY2lwZQpgYGB7cn0KcmVjaXBlIDwtIHJlY2lwZShwb3B1bGFyaXR5IH4gLiwgZGF0YSA9IHJhd190cmFpbikgJT4lIAogIHN0ZXBfbXV0YXRlKCkKYGBgCgo=</div>
 
 
 
