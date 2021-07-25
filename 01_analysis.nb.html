@@ -333,36 +333,60 @@ $ release_day      &lt;chr&gt; &quot;15&quot;, &quot;21&quot;, &quot;09&quot;, &
 <h1>Data dictionary</h1>
 <div id="tracks.csv" class="section level2">
 <h2>tracks.csv</h2>
-<p><em>id (Unique identifier of track) </em>name (Name of the song) <em>popularity (Ranges from 0 to 100) </em>duration_ms (Integer typically ranging from 200k to 300k) <em>artists (List of artists mentioned) </em>id_artists (Ids of mentioned artists) <em>danceability (Ranges from 0 to 1) </em>energy (Ranges from 0 to 1) <em>key (All keys on octave encoded as values ranging from 0 to 11, starting on C as 0, C# as 1 and so on…) </em>loudness (Float typically ranging from -60 to 0) <em>speechiness (Ranges from 0 to 1) </em>acousticness (Ranges from 0 to 1) <em>instrumentalness (Ranges from 0 to 1) </em>liveness (Ranges from 0 to 1) <em>valence (Ranges from 0 to 1) </em>tempo (Float typically ranging from 50 to 150) <em>release_year (Year of release) </em>release_month (Month of year released) *release_day (Day of month released)</p>
-<p>##artists.csv id (Id of artist) followers (Total number of followers of artist) genres (Genres associated with this artist) name (Name of artist) popularity (Popularity of given artist based on all his/her tracks)</p>
+<ul>
+<li>id (Unique identifier of track)</li>
+<li>name (Name of the song)</li>
+<li>popularity (Ranges from 0 to 100)</li>
+<li>duration_ms (Integer typically ranging from 200k to 300k)</li>
+<li>artists (List of artists mentioned)</li>
+<li>id_artists (Ids of mentioned artists)</li>
+<li>danceability (Ranges from 0 to 1)</li>
+<li>energy (Ranges from 0 to 1)</li>
+<li>key (All keys on octave encoded as values ranging from 0 to 11, starting on C as 0, C# as 1 and so on…)</li>
+<li>loudness (Float typically ranging from -60 to 0)</li>
+<li>speechiness (Ranges from 0 to 1)</li>
+<li>acousticness (Ranges from 0 to 1)</li>
+<li>instrumentalness (Ranges from 0 to 1)</li>
+<li>liveness (Ranges from 0 to 1)</li>
+<li>valence (Ranges from 0 to 1)</li>
+<li>tempo (Float typically ranging from 50 to 150)</li>
+<li>release_year (Year of release)</li>
+<li>release_month (Month of year released)</li>
+<li>release_day (Day of month released)</li>
+</ul>
+<p>##artists.csv * id (Id of artist) * followers (Total number of followers of artist) * genres (Genres associated with this artist) * name (Name of artist) * popularity (Popularity of given artist based on all his/her tracks)</p>
 </div>
-</div>
-<div id="what-shit-can-we-dump" class="section level1">
-<h1>What shit can we dump?</h1>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
 </div>
 <div id="tidy-up-the-data-using-a-recipe" class="section level1">
 <h1>Tidy up the data using a recipe</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmF3X3RyYWluJGFydGlzdHNbMzU0XSAlPiUgc3RyX3JlbW92ZV9hbGwocGF0dGVybiA9IFwiLFwiKSAlPiUgIHN0cl9leHRyYWN0X2FsbChwYXR0ZXJuID0gXCJbOnB1bmN0Ol1bWzphbG51bTpdXStbOmJsYW5rOl0qXCIpXG5cbmBgYCJ9 -->
-<pre class="r"><code>raw_train$artists[354] %&gt;% str_remove_all(pattern = &quot;,&quot;) %&gt;%  str_extract_all(pattern = &quot;[:punct:][[:alnum:]]+[:blank:]*&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShyYXdfYXJ0aXN0cylcblxuYGBgIn0= -->
+<pre class="r"><code>glimpse(raw_artists)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cblsxXSBcIidHaXVzZXBwZSBcIiAgXCInUmljaGFyZCBcIiAgIFwiJ0dpdXNlcHBlIFwiICBcIidFbHZpcmEgXCIgICAgXCInQ29ybyBcIiAgICAgIFwiJ09yY2hlc3RyYSBcIlxuWzddIFwiJ1R1bGxpbyBcIiAgICBcIidPcmNoZXN0cmEgXCJcbiJ9 -->
-<pre><code>[[1]]
-[1] &quot;&#39;Giuseppe &quot;  &quot;&#39;Richard &quot;   &quot;&#39;Giuseppe &quot;  &quot;&#39;Elvira &quot;    &quot;&#39;Coro &quot;      &quot;&#39;Orchestra &quot;
-[7] &quot;&#39;Tullio &quot;    &quot;&#39;Orchestra &quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMTcsNzE4XG5Db2x1bW5zOiA1XG4kIGlkICAgICAgICAgPGNocj4gXCI1NUNYRzVLREpwUll3Qm9wZllBSkhhXCIsIFwiMDhtak1VVWp5VGNoTUhDVzdldmMzUlwiLCBcIjNFYm43bUtZekQwTDNEYVVCMWdOSlpcIiwgXCLigKZcbiQgZm9sbG93ZXJzICA8ZGJsPiAyMTc1NiwgNjQwOTkzLCAxNjE1MDksIDk1NzgsIDQ4ODc2LCAyMjYyLCA1MTI4NjEsIDM3Mjc3NCwgNDk0LCAxMjI0ODA0LCA0ODY0MDIs4oCmXG4kIGdlbnJlcyAgICAgPGNocj4gXCJbJ2NvdW50cnkgYmx1ZXMnLCAnY291bnRyeSByb2NrJywgJ3BpZWRtb250IGJsdWVzJ11cIiwgXCJbJ3R1cmtpc2ggcG9wJ11cIiwgXCJbJ2Nl4oCmXG4kIG5hbWUgICAgICAgPGNocj4gXCJKb3JtYSBLYXVrb25lblwiLCBcIkhhbmRlIFllbmVyXCIsIFwiQ2hyaXN0eSBNb29yZVwiLCBcIkRpZSBCaWVuZSBNYWphXCIsIFwiSmF5LVIgU2lhYuKAplxuJCBwb3B1bGFyaXR5IDxkYmw+IDQwLCA2MiwgNTYsIDU2LCAzOSwgMzIsIDY2LCA2NSwgNDMsIDcxLCA2NywgODEsIDU5LCAxMiwgNDYsIDcsIDYxLCA2MSwgNDgsIDM3LCDigKZcbiJ9 -->
+<pre><code>Rows: 17,718
+Columns: 5
+$ id         &lt;chr&gt; &quot;55CXG5KDJpRYwBopfYAJHa&quot;, &quot;08mjMUUjyTchMHCW7evc3R&quot;, &quot;3Ebn7mKYzD0L3DaUB1gNJZ&quot;, &quot;…
+$ followers  &lt;dbl&gt; 21756, 640993, 161509, 9578, 48876, 2262, 512861, 372774, 494, 1224804, 486402,…
+$ genres     &lt;chr&gt; &quot;[&#39;country blues&#39;, &#39;country rock&#39;, &#39;piedmont blues&#39;]&quot;, &quot;[&#39;turkish pop&#39;]&quot;, &quot;[&#39;ce…
+$ name       &lt;chr&gt; &quot;Jorma Kaukonen&quot;, &quot;Hande Yener&quot;, &quot;Christy Moore&quot;, &quot;Die Biene Maja&quot;, &quot;Jay-R Siab…
+$ popularity &lt;dbl&gt; 40, 62, 56, 56, 39, 32, 66, 65, 43, 71, 67, 81, 59, 12, 46, 7, 61, 61, 48, 37, …</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="eda" class="section level1">
+<h1>EDA</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU0xJQ0VEISBTMDFFMDggQW5hbHlzaXMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyLCBzZXR1cC1vcHRpb25zLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCiAgZmlnLndpZHRoID0gNSwgZmlnLmhlaWdodCA9IDgsCiAgd2FybmluZyA9IEZBTFNFLAogIGNhY2hlID0gVFJVRQopCmBgYAoKIyBQYWNrYWdlcwpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkodGlkeW1vZGVscykKbGlicmFyeShtYWdyaXR0cikKYGBgCiMgUmVhZCBpbiB0aGUgZGF0YQpgYGB7cn0KcmF3X3RyYWluIDwtIHJlYWRfY3N2KCJ0cmFpbi5jc3YiKQpyYXdfdGVzdCA8LSByZWFkX2NzdigidGVzdC5jc3YiKQpyYXdfYXJ0aXN0cyA8LSByZWFkX2NzdigiYXJ0aXN0cy5jc3YiKQpzYW1wbGVfc3ViIDwtIHJlYWRfY3N2KCJzYW1wbGVfc3VibWlzc2lvbi5jc3YiKQpgYGAKIyBDaGVjayBvdXQgdGhlIGRhdGEKYGBge3J9CmdsaW1wc2UocmF3X3RyYWluKQpgYGAKYGBge3J9CmdsaW1wc2UocmF3X2FydGlzdHMpCmBgYAojIERhdGEgZGljdGlvbmFyeQoKIyMgdHJhY2tzLmNzdgoqaWQgICAgICAgICAgICAgICAgKFVuaXF1ZSBpZGVudGlmaWVyIG9mIHRyYWNrKQoqbmFtZSAgICAgICAgICAgICAgKE5hbWUgb2YgdGhlIHNvbmcpCipwb3B1bGFyaXR5ICAgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxMDApCipkdXJhdGlvbl9tcyAgICAgICAoSW50ZWdlciB0eXBpY2FsbHkgcmFuZ2luZyBmcm9tIDIwMGsgdG8gMzAwaykKKmFydGlzdHMgICAgICAgICAgIChMaXN0IG9mIGFydGlzdHMgbWVudGlvbmVkKQoqaWRfYXJ0aXN0cyAgICAgICAgKElkcyBvZiBtZW50aW9uZWQgYXJ0aXN0cykKKmRhbmNlYWJpbGl0eSAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCiplbmVyZ3kgICAgICAgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxKQoqa2V5ICAgICAgICAgICAgICAgKEFsbCBrZXlzIG9uIG9jdGF2ZSBlbmNvZGVkIGFzIHZhbHVlcyByYW5naW5nIGZyb20gMCB0byAxMSwgc3RhcnRpbmcgb24gQyBhcyAwLCBDIyBhcyAxIGFuZCBzbyBvbi4uLikKKmxvdWRuZXNzICAgICAgICAgIChGbG9hdCB0eXBpY2FsbHkgcmFuZ2luZyBmcm9tIC02MCB0byAwKQoqc3BlZWNoaW5lc3MgICAgICAgKFJhbmdlcyBmcm9tIDAgdG8gMSkKKmFjb3VzdGljbmVzcyAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCippbnN0cnVtZW50YWxuZXNzICAoUmFuZ2VzIGZyb20gMCB0byAxKQoqbGl2ZW5lc3MgICAgICAgICAgKFJhbmdlcyBmcm9tIDAgdG8gMSkKKnZhbGVuY2UgICAgICAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCip0ZW1wbyAgICAgICAgICAgICAoRmxvYXQgdHlwaWNhbGx5IHJhbmdpbmcgZnJvbSA1MCB0byAxNTApCipyZWxlYXNlX3llYXIgICAgICAoWWVhciBvZiByZWxlYXNlKQoqcmVsZWFzZV9tb250aCAgICAgKE1vbnRoIG9mIHllYXIgcmVsZWFzZWQpCipyZWxlYXNlX2RheSAgICAgICAoRGF5IG9mIG1vbnRoIHJlbGVhc2VkKQoKIyNhcnRpc3RzLmNzdgppZCAoSWQgb2YgYXJ0aXN0KQpmb2xsb3dlcnMgKFRvdGFsIG51bWJlciBvZiBmb2xsb3dlcnMgb2YgYXJ0aXN0KQpnZW5yZXMgKEdlbnJlcyBhc3NvY2lhdGVkIHdpdGggdGhpcyBhcnRpc3QpCm5hbWUgKE5hbWUgb2YgYXJ0aXN0KQpwb3B1bGFyaXR5IChQb3B1bGFyaXR5IG9mIGdpdmVuIGFydGlzdCBiYXNlZCBvbiBhbGwgaGlzL2hlciB0cmFja3MpCgojIFdoYXQgc2hpdCBjYW4gd2UgZHVtcD8KYGBge3J9CgpgYGAKCgojIFRpZHkgdXAgdGhlIGRhdGEgdXNpbmcgYSByZWNpcGUKYGBge3J9CnJlY2lwZSA8LSByZWNpcGUocG9wdWxhcml0eSB+IC4sIGRhdGEgPSByYXdfdHJhaW4pICU+JSAKICBzdGVwX211dGF0ZSgpCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU0xJQ0VEISBTMDFFMDggQW5hbHlzaXMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyLCBzZXR1cC1vcHRpb25zLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoCiAgZmlnLndpZHRoID0gNSwgZmlnLmhlaWdodCA9IDgsCiAgd2FybmluZyA9IEZBTFNFLAogIGNhY2hlID0gVFJVRQopCmBgYAoKIyBQYWNrYWdlcwpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkodGlkeW1vZGVscykKbGlicmFyeShtYWdyaXR0cikKYGBgCiMgUmVhZCBpbiB0aGUgZGF0YQpgYGB7cn0KcmF3X3RyYWluIDwtIHJlYWRfY3N2KCJ0cmFpbi5jc3YiKQpyYXdfdGVzdCA8LSByZWFkX2NzdigidGVzdC5jc3YiKQpyYXdfYXJ0aXN0cyA8LSByZWFkX2NzdigiYXJ0aXN0cy5jc3YiKQpzYW1wbGVfc3ViIDwtIHJlYWRfY3N2KCJzYW1wbGVfc3VibWlzc2lvbi5jc3YiKQpgYGAKIyBDaGVjayBvdXQgdGhlIGRhdGEKYGBge3J9CmdsaW1wc2UocmF3X3RyYWluKQpgYGAKYGBge3J9CmdsaW1wc2UocmF3X2FydGlzdHMpCmBgYAojIERhdGEgZGljdGlvbmFyeQoKIyMgdHJhY2tzLmNzdgoqIGlkICAgICAgICAgICAgICAgIChVbmlxdWUgaWRlbnRpZmllciBvZiB0cmFjaykKKiBuYW1lICAgICAgICAgICAgICAoTmFtZSBvZiB0aGUgc29uZykKKiBwb3B1bGFyaXR5ICAgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxMDApCiogZHVyYXRpb25fbXMgICAgICAgKEludGVnZXIgdHlwaWNhbGx5IHJhbmdpbmcgZnJvbSAyMDBrIHRvIDMwMGspCiogYXJ0aXN0cyAgICAgICAgICAgKExpc3Qgb2YgYXJ0aXN0cyBtZW50aW9uZWQpCiogaWRfYXJ0aXN0cyAgICAgICAgKElkcyBvZiBtZW50aW9uZWQgYXJ0aXN0cykKKiBkYW5jZWFiaWxpdHkgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxKQoqIGVuZXJneSAgICAgICAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCioga2V5ICAgICAgICAgICAgICAgKEFsbCBrZXlzIG9uIG9jdGF2ZSBlbmNvZGVkIGFzIHZhbHVlcyByYW5naW5nIGZyb20gMCB0byAxMSwgc3RhcnRpbmcgb24gQyBhcyAwLCBDIyBhcyAxIGFuZCBzbyBvbi4uLikKKiBsb3VkbmVzcyAgICAgICAgICAoRmxvYXQgdHlwaWNhbGx5IHJhbmdpbmcgZnJvbSAtNjAgdG8gMCkKKiBzcGVlY2hpbmVzcyAgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxKQoqIGFjb3VzdGljbmVzcyAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCiogaW5zdHJ1bWVudGFsbmVzcyAgKFJhbmdlcyBmcm9tIDAgdG8gMSkKKiBsaXZlbmVzcyAgICAgICAgICAoUmFuZ2VzIGZyb20gMCB0byAxKQoqIHZhbGVuY2UgICAgICAgICAgIChSYW5nZXMgZnJvbSAwIHRvIDEpCiogdGVtcG8gICAgICAgICAgICAgKEZsb2F0IHR5cGljYWxseSByYW5naW5nIGZyb20gNTAgdG8gMTUwKQoqIHJlbGVhc2VfeWVhciAgICAgIChZZWFyIG9mIHJlbGVhc2UpCiogcmVsZWFzZV9tb250aCAgICAgKE1vbnRoIG9mIHllYXIgcmVsZWFzZWQpCiogcmVsZWFzZV9kYXkgICAgICAgKERheSBvZiBtb250aCByZWxlYXNlZCkKCiMjYXJ0aXN0cy5jc3YKKiBpZCAoSWQgb2YgYXJ0aXN0KQoqIGZvbGxvd2VycyAoVG90YWwgbnVtYmVyIG9mIGZvbGxvd2VycyBvZiBhcnRpc3QpCiogZ2VucmVzIChHZW5yZXMgYXNzb2NpYXRlZCB3aXRoIHRoaXMgYXJ0aXN0KQoqIG5hbWUgKE5hbWUgb2YgYXJ0aXN0KQoqIHBvcHVsYXJpdHkgKFBvcHVsYXJpdHkgb2YgZ2l2ZW4gYXJ0aXN0IGJhc2VkIG9uIGFsbCBoaXMvaGVyIHRyYWNrcykKCgojIFRpZHkgdXAgdGhlIGRhdGEgdXNpbmcgYSByZWNpcGUKYGBge3J9CnJlY2lwZSA8LSByZWNpcGUocG9wdWxhcml0eSB+IC4sIGRhdGEgPSByYXdfdHJhaW4pICU+JSAKICBzdGVwX211dGF0ZSgpCmBgYAoKIyBFREEKYGBge3J9CnJhd190cmFpbiAlPiUgCiAgIyBmaWx0ZXIocG9wdWxhcml0eSA+PSA1MCkgJT4lIAogIGdncGxvdChhZXMoeSA9IHZhbGVuY2UsIHggPSB0ZW1wbywgYWxwaGEgPSBwb3B1bGFyaXR5KSkgKwogIGdlb21fcG9pbnQoKQpgYGAKCg==</div>
 
 
 
